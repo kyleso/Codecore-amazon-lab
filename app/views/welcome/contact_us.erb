@@ -1,2 +1,26 @@
-<h1>Welcome#contact_us</h1>
-<p>Find me in app/views/welcome/contact_us.html.erb</p>
+<h1>Contact Us</h1>
+
+<%= form_tag(contact_us_path) do %>
+  <div>
+    <%= label_tag(:full_name) %> <br>
+    <%= text_field_tag(:full_name) %>
+  </div>
+
+  <div>
+    <%= label_tag(:email) %> <br>
+    <%= email_field_tag(:email, nil, class: "magic-input") %>
+  </div>
+
+  <div>
+    <%= label_tag(:message) %> <br>
+    <%= text_area_tag(:message, nil, cols: 60, rows: 5) %>
+  </div>
+
+  <%= submit_tag("Submit") %>
+
+  <%#
+    For all the available form tag helpers checkout:
+    https://api.rubyonrails.org/v5.1/classes/ActionView/Helpers/FormTagHelper.html
+  %>
+
+<% end %>
