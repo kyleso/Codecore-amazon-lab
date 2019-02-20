@@ -4,15 +4,19 @@ Rails.application.routes.draw do
   get('/contact_us', to: "welcome#contact_us")
   post("/contact_us", to: "welcome#thank_you")
 
-  get('products/new', to: "products#new", as: :new_product)
-  post('/products', to: "products#create", as: :products)
 
-  get('/products/:id', to: 'products#show', as: :product)
-  get('/products', to: 'products#index')
+  resources :products do
+    resources :reviews, only: [:create, :destroy]
+  end
+  # get('products/new', to: "products#new", as: :new_product)
+  # post('/products', to: "products#create", as: :products)
 
-  delete('/products/:id', to: 'products#destroy')
+  # get('/products/:id', to: 'products#show', as: :product)
+  # get('/products', to: 'products#index')
 
-  get('/products/:id/edit', to: 'products#edit', as: :edit_product)
-  patch('/products/:id', to: "products#update")
+  # delete('/products/:id', to: 'products#destroy')
+
+  # get('/products/:id/edit', to: 'products#edit', as: :edit_product)
+  # patch('/products/:id', to: "products#update")
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
