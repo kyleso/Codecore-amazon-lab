@@ -18,7 +18,7 @@ class Product < ApplicationRecord
   end
 
   def capitalize_title
-    self.title.capitalize!
+    self.title.titleize
   end
 
 end

@@ -13,7 +13,7 @@ Product.destroy_all
 created_at = Faker::Date.backward(365)
 
 Product.create(
-  title: Faker::Hipster.words,
+  title: Faker::Appliance.equipment,
   description: Faker::Hipster.sentence,
   price: rand(1..100),
   created_at: created_at,

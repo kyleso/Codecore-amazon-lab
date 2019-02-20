@@ -1,0 +1,26 @@
+<h1>Edit Product</h1>
+
+<%= form_with(model: @product, local: true) do |form| %>
+
+  <% if @product.errors.present? %>
+    <p>
+      <%= @product.errors.full_messages.join(', ') %>
+    </p>
+  <% end %>
+
+  <div>
+    <%= form.label :title %> <br/>
+    <%= form.text_field :title %>
+  </div>
+  <div>
+    <%= form.label :body %> <br/>
+    <%= form.text_area :description, cols: 60, rows: 5 %>
+  </div>
+  <div>
+    <%= form.label :price %> <br />
+    <%= form.number_field :price%>
+  </div>
+
+  <%= form.submit %>
+
+<% end %>

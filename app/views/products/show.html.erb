@@ -1,0 +1,20 @@
+<h3> <%= @product.title %> </h3>
+
+<p> <%= @product.description %> </p>
+
+<h5> Price: <%= number_to_currency(@product.price) %> </h5>
+
+<div>
+  <small>
+    Added <%= time_ago_in_words(@product.created_at) %> ago
+  </small>
+</div>
+
+<div>
+  <small>
+    <%= link_to "Edit", edit_product_path(@product.id) %>
+  </small>
+  <small>
+    <%= link_to "Delete", product_path(@product.id), method: :delete, data: { confirm: "Are you sure you want to delete this product?" } %>
+  </small>
+</div>
