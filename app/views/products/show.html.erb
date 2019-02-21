@@ -6,7 +6,8 @@
 
 <div>
   <small>
-    Added <%= time_ago_in_words(@product.created_at) %> ago
+    Added by <%= @product.user&.full_name || '--deleted--' %>
+    <%= time_ago_in_words(@product.created_at) %> ago
   </small>
 </div>
 
@@ -64,7 +65,8 @@
           </small>
           |
           <small>
-            added <%= time_ago_in_words(review.created_at) %> ago
+            Review added by <%= review.user&.full_name || '--deleted--' %>
+            <%= time_ago_in_words(review.created_at) %> ago
           </small>
         </p>
       </li>

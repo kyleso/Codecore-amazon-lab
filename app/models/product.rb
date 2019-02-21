@@ -1,5 +1,5 @@
 class Product < ApplicationRecord
-
+  belongs_to(:user)
   has_many(:reviews, dependent: :destroy)
 
   validates(:title, presence: true, uniqueness: true, case_insensitive: false)

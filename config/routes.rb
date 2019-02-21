@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
+  get('/', to: "welcome#home", as: :root)
   get('/home', to: "welcome#home")
   get('/about', to: "welcome#about")
   get('/contact_us', to: "welcome#contact_us")
   post("/contact_us", to: "welcome#thank_you")
 
+  resources :users, only: [:new, :create]
+
+  resource :session, only: [:new, :create, :destroy]
 
   resources :products do
     resources :reviews, only: [:create, :destroy]

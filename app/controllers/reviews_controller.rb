@@ -1,9 +1,11 @@
 class ReviewsController < ApplicationController
+  before_action :authenticate_user!
+  
   def create
     @product = Product.find params[:product_id]
     @new_review = Review.new review_params
     @new_review.product = @product
-
+    @new_review.user = current_user
     if @new_review.save
       redirect_to product_url(@product.id)
     else
