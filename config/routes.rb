@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   get('/home', to: "welcome#home")
   get('/about', to: "welcome#about")
   get('/contact_us', to: "welcome#contact_us")
-  post("/contact_us", to: "welcome#thank_you")
+  post("/process_contact", to: "welcome#thank_you")
 
   resources :users, only: [:new, :create]
 

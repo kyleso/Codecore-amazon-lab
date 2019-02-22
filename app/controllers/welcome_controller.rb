@@ -6,6 +6,9 @@ class WelcomeController < ApplicationController
   end
 
   def contact_us
+  end
+
+  def process_contact
     @full_name = params[:full_name]
     @email = params[:email]
     @message = params[:message]
@@ -13,7 +16,5 @@ class WelcomeController < ApplicationController
     render :thank_you
   end
 
-  def bill_splitter
 
-  end
 end
