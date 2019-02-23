@@ -17,7 +17,7 @@ class ReviewsController < ApplicationController
   def destroy
     @review = Review.find params[:id]
     @review.destroy
-    redirect_to product_url(@review.question)
+    redirect_to product_url(@review.product)
   end
 
   private
