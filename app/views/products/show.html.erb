@@ -4,6 +4,8 @@
 
 <h5> Price: <%= number_to_currency(@product.price) %> </h5>
 
+<h5> Average Rating: <%= @avg %> </h5>
+
 <div>
   <small>
     Added by <%= @product.user&.full_name || '--deleted--' %>

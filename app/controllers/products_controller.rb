@@ -19,6 +19,7 @@ class ProductsController < ApplicationController
 
   def show
     @new_review = Review.new
+    @avg = average_rating
     if @product.user == current_user
       @reviews = @product.reviews.order(created_at: :desc)
     else
@@ -58,6 +59,10 @@ class ProductsController < ApplicationController
 
   def authorize_user!
     redirect_to products_path, alert: "you must be signed in" unless can? :crud, @product
+  end
+
+  def average_rating
+    @product.reviews.average(:rating)
   end
 
 end
