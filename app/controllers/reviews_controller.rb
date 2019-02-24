@@ -1,5 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
+  before_action :authorize_user!, only: [:destroy, :edit, :update]
   
   def create
     @product = Product.find params[:product_id]
@@ -24,5 +25,9 @@ class ReviewsController < ApplicationController
 
   def review_params
     params.require(:review).permit(:body, :rating)
+  end
+
+  def authorize_user!
+    redirect_to products_path, alert: "you must be signed in" unless can? :crud, @review
   end
 end

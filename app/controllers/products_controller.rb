@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show]
   before_action :find_product, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_user!, only: [:destroy, :edit, :update]
 
   def new 
     @product = Product.new
@@ -50,6 +51,10 @@ class ProductsController < ApplicationController
 
   def find_product
     @product = Product.find(params[:id])
+  end
+
+  def authorize_user!
+    redirect_to products_path, alert: "you must be signed in" unless can? :crud, @product
   end
 
 end
