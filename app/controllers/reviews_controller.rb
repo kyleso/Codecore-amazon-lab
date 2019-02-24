@@ -1,6 +1,6 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_user!, only: [:destroy, :edit, :update]
+  # before_action :authorize_user!, only: [:destroy, :edit, :update]
   
   def create
     @product = Product.find params[:product_id]
@@ -17,8 +17,12 @@ class ReviewsController < ApplicationController
 
   def destroy
     @review = Review.find params[:id]
-    @review.destroy
-    redirect_to product_url(@review.product)
+    if can? :destroy, @review
+      @review.destroy
+      redirect_to product_url(@review.product)
+    else
+      head :unauthorized
+    end
   end
 
   def hide
@@ -33,7 +37,7 @@ class ReviewsController < ApplicationController
     params.require(:review).permit(:body, :rating)
   end
 
-  def authorize_user!
-    redirect_to products_path, alert: "you must be signed in" unless can? :crud, @review
-  end
+  # def authorize_user!
+  #   redirect_to products_path, alert: "you must be signed in" unless can? :crud, @review
+  # end
 end

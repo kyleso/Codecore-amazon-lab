@@ -34,6 +34,9 @@ class Ability
     alias_action :create, :read, :update, :destroy, to: :crud
 
     can :crud, Product, user_id: user.id
+    # can :crud, Review do |review|
+    #   review.product.user == user
+    # end
     can :crud, Review, user_id: user.id
 
     can :hide, Review do |review|
