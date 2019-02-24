@@ -50,7 +50,8 @@
   <ul class="review-list">
     <% @reviews.each do |review| %>
       <li>
-        <p>
+        <% review.is_hidden? ? textcolor = "color:lightgray" : textcolor = "color:black" %>
+        <p style=<%=textcolor%> >
           <%= review.body %> <br>
           <%= review.rating %> out of 5 <br>
           <% if can?(:hide, review)%>
@@ -66,6 +67,7 @@
                 )
               %>
             </small>
+            |
           <% end %>
           <% if can?(:crud, review) %>
             <small>
