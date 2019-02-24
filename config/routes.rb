@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resources :products do
     resources :reviews, only: [:create, :destroy]
   end
+
+  patch("/products/:product_id/reviews/:id/hide", to: "reviews#hide", as: :hide)
   # get('products/new', to: "products#new", as: :new_product)
   # post('/products', to: "products#create", as: :products)
 

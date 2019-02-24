@@ -18,9 +18,12 @@ class ProductsController < ApplicationController
   end
 
   def show
-
     @new_review = Review.new
-    @reviews = @product.reviews.order(created_at: :desc)
+    if @product.user_id == current_user
+      @reviews = @product.reviews.order(created_at: :desc)
+    else
+      @reviews = @product.reviews.where(is_hidden: false).order(created_at: :desc)
+    end
   end
 
   def index

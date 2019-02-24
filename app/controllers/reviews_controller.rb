@@ -21,6 +21,12 @@ class ReviewsController < ApplicationController
     redirect_to product_url(@review.product)
   end
 
+  def hide
+    @review = Review.find params[:id]
+    @review.update(is_hidden: !@review.is_hidden?)
+    redirect_to product_url(@review.product)
+  end
+
   private
 
   def review_params
