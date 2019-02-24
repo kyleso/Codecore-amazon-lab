@@ -53,35 +53,34 @@
         <p>
           <%= review.body %> <br>
           <%= review.rating %> out of 5 <br>
-          My status is <%= review.is_hidden %>
           <% if can?(:hide, review)%>
-          <small>
-            <%= 
-              link_to(
-                "Hide",
-                hide_path(@product, review),
-                method: :patch,
-                data: {
-                  confirm: "Are you sure?"
-                }
-              )
-            %>
-          </small>
+            <small>
+              <%= 
+                link_to(
+                  "Toggle Hide",
+                  hide_path(@product, review),
+                  method: :patch,
+                  data: {
+                    confirm: "Are you sure?"
+                  }
+                )
+              %>
+            </small>
           <% end %>
           <% if can?(:crud, review) %>
-          <small>
-            <%=
-              link_to(
-                "Delete",
-                product_review_path(@product, review),
-                method: :delete,
-                data: {
-                  confirm: "Are you sure?"
-                }
-              )
-            %>
-          </small>
-          |
+            <small>
+              <%=
+                link_to(
+                  "Delete",
+                  product_review_path(@product, review),
+                  method: :delete,
+                  data: {
+                    confirm: "Are you sure?"
+                  }
+                )
+              %>
+            </small>
+            |
           <% end %>
           <small>
             Review added by <%= review.user&.full_name || '--deleted--' %>

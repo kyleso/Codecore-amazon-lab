@@ -19,10 +19,10 @@ class ProductsController < ApplicationController
 
   def show
     @new_review = Review.new
-    if @product.user_id == current_user
+    if @product.user == current_user
       @reviews = @product.reviews.order(created_at: :desc)
     else
-      @reviews = @product.reviews.where(is_hidden: false).order(created_at: :desc)
+      @reviews = @product.reviews.where("is_hidden = false").order(created_at: :desc)
     end
   end
 
