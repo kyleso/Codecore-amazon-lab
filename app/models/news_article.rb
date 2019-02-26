@@ -6,7 +6,9 @@ class NewsArticle < ApplicationRecord
 
   after_save(:capitalize_title)
 
-  scope(:publish, -> { self.published_at = DateTime.now })
+  def publish
+    self.published_at = DateTime.now
+  end
 
   private
 
