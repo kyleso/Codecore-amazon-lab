@@ -40,6 +40,7 @@ group :development, :test do
   gem 'pry'
   gem 'pry-rails'
   gem 'hirb'
+  gem 'rspec-rails'
 end
 
 group :development do
