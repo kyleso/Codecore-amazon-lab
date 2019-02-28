@@ -1,4 +1,6 @@
 class NewsArticle < ApplicationRecord
+  belongs_to(:user)
+
   validates(:title, presence: true, uniqueness: true)
   validates(:description, presence: true)
 
@@ -23,5 +25,4 @@ class NewsArticle < ApplicationRecord
   def capitalize_title
     self.title = self.title.titleize
   end
-
 end
