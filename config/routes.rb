@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  get('/', to: "welcome#home", as: :root)
-  get('/home', to: "welcome#home")
-  get('/about', to: "welcome#about")
-  get('/contact_us', to: "welcome#contact_us")
+  get("/", to: "welcome#home", as: :root)
+  get("/home", to: "welcome#home")
+  get("/about", to: "welcome#about")
+  get("/contact_us", to: "welcome#contact_us")
   post("/process_contact", to: "welcome#thank_you")
 
   resources :users, only: [:new, :create]
@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resources :products do
     resources :reviews, only: [:create, :destroy]
   end
+
+  resources :news_articles
 
   patch("/products/:product_id/reviews/:id/hide", to: "reviews#hide", as: :hide)
   # get('products/new', to: "products#new", as: :new_product)
