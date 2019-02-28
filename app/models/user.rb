@@ -12,7 +12,16 @@ class User < ApplicationRecord
                     uniqueness: true,
                     format: /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 
+  after_save(:capitalize_name)
+
   def full_name
     "#{first_name} #{last_name}".strip
+  end
+
+  private
+
+  def capitalize_name
+    self.first_name = self.first_name.titleize
+    self.last_name = self.last_name.titleize
   end
 end
