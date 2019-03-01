@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   def new
     @user = User.new
   end
@@ -8,15 +7,16 @@ class UsersController < ApplicationController
     @user = User.new user_params
     if @user.save
       session[:user_id] = @user.id
-      if session[:return_to].present?
-        redirect_to session.delete(:return_to), notice: "Signed in successfully"
-      end
+      redirect_to root_path
+      # if session[:return_to].present?
+      #   redirect_to session.delete(:return_to), notice: "Signed in successfully"
+      # end
     else
       render :new
     end
   end
 
-  private 
+  private
 
   def user_params
     params.require(:user).permit(
