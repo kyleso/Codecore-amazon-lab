@@ -48,6 +48,10 @@ class ProductsController < ApplicationController
     end
   end
 
+  def favourited
+    @products = current_user.favourited_products.order(created_at: :desc)
+  end
+
   private
 
   def product_params
