@@ -56,6 +56,19 @@
         <p style=<%=textcolor%> >
           <%= review.body %> <br>
           <%= review.rating %> out of 5 <br>
+          <small>
+            <% like = review.likes.find_by(user: current_user) 
+              if like.present? && can?(:destroy, like)%>
+                <%= link_to "Unlike", like_path(like), method: :delete%>
+              <% elsif can?(:like, review) %>
+                <%= link_to "Like", product_review_likes_path(@product, review), method: :post %>
+              <% end %>
+          </small>
+          |
+          <small>
+            <%= pluralize(review.likes.count, "like") %>
+          </small>
+          |
           <% if can?(:hide, review)%>
             <small>
               <%= 
