@@ -2,6 +2,9 @@ class Product < ApplicationRecord
   belongs_to(:user)
   has_many(:reviews, dependent: :destroy)
 
+  has_many :favourites, dependent: :destroy
+  has_many :favouriters, through: :likes, source: :user
+
   validates(:title, presence: true, uniqueness: true, case_insensitive: false)
   validates(:price, presence: true, numericality: { greater_than: 0 })
   validates(:description, presence: true, length: { minimum: 10 })
@@ -11,7 +14,7 @@ class Product < ApplicationRecord
   before_validation(:set_default_price)
   before_validation(:capitalize_title)
 
-  scope(:search, ->(query) { where("title ILIKE ? OR body ILIKE ?", "%#{query}%", "%#{query}%") })
+  scope(:search, -> (query) { where("title ILIKE ? OR body ILIKE ?", "%#{query}%", "%#{query}%") })
 
   private
 
@@ -22,5 +25,4 @@ class Product < ApplicationRecord
   def capitalize_title
     self.title.titleize
   end
-
 end

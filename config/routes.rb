@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   resource :session, only: [:new, :create, :destroy]
 
   resources :products do
+    resources :favourites, shallow: true, only: [:create, :destroy]
     resources :reviews, only: [:create, :destroy] do
       resources :likes, shallow: true, only: [:create, :destroy]
     end

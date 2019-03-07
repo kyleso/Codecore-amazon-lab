@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
   before_action :find_product, only: [:show, :edit, :update, :destroy]
   before_action :authorize_user!, only: [:destroy, :edit, :update]
 
-  def new 
+  def new
     @product = Product.new
   end
 
@@ -25,6 +25,7 @@ class ProductsController < ApplicationController
     else
       @reviews = @product.reviews.where("is_hidden = false").order(created_at: :desc)
     end
+    @favourite = @product.favourites.find_by(user: current_user)
   end
 
   def index
@@ -32,7 +33,7 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product.destroy 
+    @product.destroy
     redirect_to products_path
   end
 
@@ -64,5 +65,4 @@ class ProductsController < ApplicationController
   def average_rating
     @product.reviews.average(:rating)
   end
-
 end
