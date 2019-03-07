@@ -7,19 +7,16 @@
 <h5> Average Rating: <%= @avg %> </h5>
 
 <div>
+<small>
+    <% if @favourite.present? && can?(:destroy, @favourite) %>
+      <%= link_to " ", favourite_path(@favourite), method: :delete, class: "fa fa-star" %>
+    <% elsif session[:user_id].present? %>
+      <%= link_to " ", product_favourites_path(@product), method: :post, class: "fa fa-star-o" %>
+    <% end %>
+  </small>
   <small>
     Added by <%= @product.user&.full_name || '--deleted--' %>
     <%= time_ago_in_words(@product.created_at) %> ago
-  </small>
-</div>
-
-<div>
-  <small>
-    <% if @favourite.present? && can?(:destroy, @favourite) %>
-      <%= link_to " Un-Favourite", favourite_path(@favourite), method: :delete, class: "fa fa-star" %>
-    <% elsif session[:user_id].present? %>
-      <%= link_to " Favourite", product_favourites_path(@product), method: :post, class: "fa fa-star-o" %>
-    <% end %>
   </small>
 </div>
 
