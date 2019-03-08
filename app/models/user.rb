@@ -9,6 +9,9 @@ class User < ApplicationRecord
   has_many :favourites, dependent: :destroy
   has_many :favourited_products, through: :favourites, source: :product
 
+  has_many :votes, dependent: :destroy
+  has_many :voted_reviews, through: :votes, source: :review
+
   has_secure_password
 
   validates :first_name, presence: true

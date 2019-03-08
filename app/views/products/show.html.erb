@@ -4,7 +4,7 @@
 
 <h5> Price: <%= number_to_currency(@product.price) %> </h5>
 
-<h5> Average Rating: <%= @avg %> </h5>
+<h5> Average Rating: <%= @avg.round(1) %> </h5>
 
 <div>
 <small>
@@ -65,15 +65,32 @@
           <%= review.rating %> out of 5 <br>
           <small>
             <% like = review.likes.find_by(user: current_user) 
-              if like.present? && can?(:destroy, like)%>
-                <%= link_to "Unlike", like_path(like), method: :delete%>
+              if like.present? && can?(:destroy, like) %>
+                <%= link_to fa_icon("thumbs-down"), like_path(like), method: :delete %>
               <% elsif can?(:like, review) %>
-                <%= link_to "Like", product_review_likes_path(@product, review), method: :post %>
+                <%= link_to fa_icon("thumbs-up"), product_review_likes_path(@product, review), method: :post %>
               <% end %>
+          </small>
+          <small>
+            <%= pluralize(review.likes.count, "like") %>
           </small>
           |
           <small>
-            <%= pluralize(review.likes.count, "like") %>
+            <% vote = review.votes.find_by(user: current_user) 
+              if vote.present? && can?(:crud, vote) %>
+                <% if vote.is_up? %>
+                  <%= link_to fa_icon("arrow-up"), vote_path(vote), method: :delete, class: "red-arrow" %>
+                  <%= link_to fa_icon("arrow-down"), vote_path(vote, is_up: false), method: :patch %>
+                <% else %>
+                  <%= link_to fa_icon("arrow-up"), vote_path(vote, is_up: true), method: :patch %>
+                  <%= link_to fa_icon("arrow-down"), vote_path(vote), method: :delete, class: "red-arrow" %>
+                <% end %>
+              <% elsif can?(:vote, review) %>
+                <%= link_to fa_icon("arrow-up"), product_review_votes_path(@product, review, is_up: true), method: :post %>
+                <%= link_to fa_icon("arrow-down"), product_review_votes_path(@product, review, is_up: false), method: :post %>
+              <% end %>
+            <%= pluralize(review.votes.where(is_up: true).count, "up") %>
+            <%= pluralize(review.votes.where(is_up: false).count, "down") %>
           </small>
           |
           <% if can?(:hide, review)%>
@@ -104,7 +121,6 @@
                 )
               %>
             </small>
-            |
           <% end %>
           <small>
             Review added by <%= review.user&.full_name || '--deleted--' %>

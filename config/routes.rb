@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     get :favourited, on: :collection
     resources :reviews, only: [:create, :destroy] do
       resources :likes, shallow: true, only: [:create, :destroy]
+      resources :votes, shallow: true, only: [:create, :update, :destroy]
     end
   end
 

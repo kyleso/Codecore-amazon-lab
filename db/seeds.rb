@@ -38,9 +38,18 @@ users = User.all
   )
 
   if p.valid?
-    r = Review.create(body: Faker::GreekPhilosophers.quote, rating: rand(1..5), user: users.sample, product: p)
-    if r.valid?
-      r.likers = users.shuffle.slice(0, rand(users.count))
+    rand(1..10).times do
+      r = Review.create(body: Faker::GreekPhilosophers.quote, rating: rand(1..5), user: users.sample, product: p)
+      if r.valid?
+        r.likers = users.shuffle.slice(0, rand(users.count))
+        rand(0..users.count).times do
+          Vote.create(
+            review: r,
+            user: users.sample,
+            is_up: [true, false].sample,
+          )
+        end
+      end
     end
   end
 end
