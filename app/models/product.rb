@@ -5,6 +5,9 @@ class Product < ApplicationRecord
   has_many :favourites, dependent: :destroy
   has_many :favouriters, through: :likes, source: :user
 
+  has_many :taggings, dependent: :destroy
+  has_many :tags, through: :taggings
+
   validates(:title, presence: true, uniqueness: true, case_insensitive: false)
   validates(:price, presence: true, numericality: { greater_than: 0 })
   validates(:description, presence: true, length: { minimum: 10 })
@@ -15,6 +18,16 @@ class Product < ApplicationRecord
   before_validation(:capitalize_title)
 
   scope(:search, -> (query) { where("title ILIKE ? OR body ILIKE ?", "%#{query}%", "%#{query}%") })
+
+  def tag_names
+    self.tags.map { |t| t.name }.join(", ")
+  end
+
+  def tag_names=(rhs)
+    self.tags = rhs.strip.split(/\s*,\s*/).map do |tag_name|
+      Tag.find_or_initialize_by(name: tag_name)
+    end
+  end
 
   private
 

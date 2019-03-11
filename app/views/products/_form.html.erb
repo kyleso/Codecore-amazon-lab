@@ -1,0 +1,45 @@
+<%= form_with(model: @product, local: true) do |form| %>
+
+  <% if @product.errors.present? %>
+    <p>
+      <%= @product.errors.full_messages.join(', ') %>
+    </p>
+  <% end %>
+
+  <div>
+    <%= form.label :title %> <br/>
+    <%= form.text_field :title %>
+  </div>
+  <div>
+    <%= form.label :body %> <br/>
+    <%= form.text_area :description, cols: 60, rows: 5 %>
+  </div>
+  <div>
+    <%= form.label :price %> <br />
+    <%= form.number_field :price%>
+  </div>
+  <div>
+    <%= form.label :tag_names %> <br />
+    <%= form.text_field :tag_names %>
+  </div>
+
+  <%= form.submit %>
+
+<% end %>
+
+<script>
+  $("#product_tag_names").selectize({
+    delimiter: ',',
+    persist: false,
+    labelField: "name",
+    valueField: "name",
+    searchField: "name",
+    options: <%= Tag.select(:name).to_json(except: [:id]).html_safe %>,
+    create (input) {
+      return {
+        name: input
+      }
+     }
+    })
+
+</script>

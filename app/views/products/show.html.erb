@@ -6,6 +6,17 @@
 
 <h5> Average Rating: <%= @avg.round(1) %> </h5>
 
+<% unless @product.tags.empty? %>
+  <div>
+    <% @product.tags.each do |tag|  %>
+      <%= link_to(
+          tag.name,
+          products_path(tag: tag.name), class: "badge badge-pill badge-primary"
+      ) %>
+    <% end %>
+  </div>
+<% end %>
+
 <div>
 <small>
     <% if @favourite.present? && can?(:destroy, @favourite) %>

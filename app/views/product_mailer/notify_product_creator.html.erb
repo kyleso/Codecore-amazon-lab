@@ -1,0 +1,9 @@
+<h2>Hi, <%= @product.user.full_name %> </h2>
+
+<p>Your product, <%= "#{@product.title}" %> has been created!</p>
+
+<%= link_to("Click here to view your product", product_url(@product)) %>
+
+<p>Cheers, <br>
+Awesome Answers Team
+</p>
