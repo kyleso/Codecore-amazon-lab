@@ -12,6 +12,13 @@ Product.destroy_all
 User.destroy_all
 Like.destroy_all
 
+super_user = User.create(
+  first_name: "John",
+  last_name: "Snow",
+  email: "js@winterfell.gov",
+  password: PASSWORD,
+)
+
 30.times do
   first_name = Faker::Name.first_name
   last_name = Faker::Name.last_name

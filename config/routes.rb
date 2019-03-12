@@ -5,6 +5,13 @@ Rails.application.routes.draw do
   get("/contact_us", to: "welcome#contact_us")
   post("/process_contact", to: "welcome#thank_you")
 
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      resources :products
+      resource :session, only: [:create, :destroy]
+    end
+  end
+
   resources :users, only: [:new, :create]
 
   resource :session, only: [:new, :create, :destroy]

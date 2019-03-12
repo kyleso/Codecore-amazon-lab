@@ -19,6 +19,15 @@ class Product < ApplicationRecord
 
   scope(:search, -> (query) { where("title ILIKE ? OR body ILIKE ?", "%#{query}%", "%#{query}%") })
 
+  def self.search_multiple
+    # # where("title ILIKE ? OR description ILIKE ?", "%#{query}%", "%#{query}%")
+    # self.joins(:tags).where(
+    #   tags: { name: ["irony", "etsy"] },
+    # )
+    search_array = query.split(" ").map { |word| "%#{word}%" }
+    self.join(:tags).where("tags.name ILIKE ANY (array[?])", search_array)
+  end
+
   def tag_names
     self.tags.map { |t| t.name }.join(", ")
   end
