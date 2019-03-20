@@ -2,6 +2,8 @@ class Review < ApplicationRecord
   belongs_to :user
   belongs_to :product
 
+  accepts_nested_attributes_for :user
+
   has_many :likes, dependent: :destroy
   has_many :likers, through: :likes, source: :user
 

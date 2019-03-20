@@ -19,6 +19,7 @@ class ProductSerializer < ActiveModel::Serializer
       :rating
     )
 
-    belongs_to :user, key: :author
+    belongs_to :user, key: :reviewer
+    # has_one :user
   end
 end

@@ -2,6 +2,8 @@ class Product < ApplicationRecord
   belongs_to(:user)
   has_many(:reviews, dependent: :destroy)
 
+  accepts_nested_attributes_for :reviews
+
   has_many :favourites, dependent: :destroy
   has_many :favouriters, through: :likes, source: :user
 
